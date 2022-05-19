@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { readString } from "react-papaparse";
 import goodreadsWorks from "../../../assets/csv/goodreads_works.csv";
 //import goodreadsInfos from "../../../assets/csv/goodreads_books_infosnovo.csv";
@@ -19,7 +19,7 @@ import Paper from "@mui/material/Paper";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { visuallyHidden } from "@mui/utils";
-
+import axios from "axios";
 
 export default function DatasetTable() {
   function descendingComparator(a, b, orderBy) {
@@ -334,6 +334,7 @@ export default function DatasetTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = useState([]);
   const dados = []
+  const [livros, setLivros] = useState([]);
 
   function readCsv(){
     const linhaTemp = []
@@ -347,7 +348,6 @@ export default function DatasetTable() {
           linhaTemp.push(item);
         })
         setRows(linhaTemp)
-        console.log("linhas: ", rows);
       },
       download: true,
       error: (error, file) => {
@@ -403,9 +403,20 @@ export default function DatasetTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  
-  readCsv();
+  // calling  api
+  const refreshList = () => {
+    axios
+      .get("/api/books/")
+      .then((res) => setLivros({ livros: res.data }))
+      .catch((err) => console.log(err));
+    console.log(livros)
+  };
 
+  readCsv();
+  useEffect(() => {
+    refreshList();
+  });
+  
   return (
     <>
       <div className="flex flex-wrap">
