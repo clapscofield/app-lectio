@@ -1,2 +1,0 @@
-# lectio
-POC I
