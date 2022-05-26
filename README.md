@@ -1,2 +1,2 @@
-# app-lectio
-Todo
+# lectio
+POC I
