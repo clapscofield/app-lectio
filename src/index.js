@@ -5,16 +5,15 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
 import axios from "axios";
+// views without layouts
+import Dataset from "features/dataset";
+import Pln from "features/pln";
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 // layouts
 //import Admin from "layouts/Admin.js";
 //import Auth from "layouts/Auth.js";
-
-// views without layouts
-import Dataset from "features/dataset";
-import Pln from "features/pln";
 
 //import Landing from "features/landing";
 //import Profile from "views/Profile.js";
